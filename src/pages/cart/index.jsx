@@ -4,8 +4,13 @@ import CartCard from "./cartCard";
 import CartContext from "../../context/cart/cartContext";
 
 export default function Cart() {
-  const { cart, totalPrice } = useContext(CartContext);
-  const deliveryCharge = totalPrice < 500 ? 40 : 0;
+  const { cart } = useContext(CartContext);
+
+  const totalCartPrice = cart.reduce(
+    (acc, product) => acc + product.price * product.quantity,
+    0
+  );
+  const deliveryCharge = totalCartPrice < 500 ? 40 : 0;
 
   return (
     <section className="container grid grid-cols-1 lg:grid-cols-3 gap-4 mt-12">
@@ -15,7 +20,7 @@ export default function Cart() {
         </div>
         <div className="space-y-4 py-4">
           {cart?.map((product, index) => (
-            <CartCard key={index} id={product.productId} />
+            <CartCard key={index} product={product} />
           ))}
         </div>
       </div>
@@ -26,7 +31,7 @@ export default function Cart() {
           <ul className="my-4">
             <li className="flex items-center justify-between">
               <p>Price ({cart?.length})</p>
-              <p>&#x20B9;{totalPrice}</p>
+              <p>&#x20B9;{totalCartPrice}</p>
             </li>
             <li className="flex items-center justify-between">
               <p>Discount</p>
@@ -39,13 +44,13 @@ export default function Cart() {
 
             <li className="border-y border-dashed flex justify-between py-2 my-2 font-medium">
               <p>Total Amount</p>
-              <p>&#x20B9;{totalPrice + deliveryCharge}</p>
+              <p>&#x20B9;{totalCartPrice + deliveryCharge}</p>
             </li>
           </ul>
         </div>
         <div className="flex items-center justify-between p-4 rounded bg-white shadow mt-4">
           <p className="font-semibold text-lg">
-            &#x20B9;{totalPrice + deliveryCharge}
+            &#x20B9;{totalCartPrice + deliveryCharge}
           </p>
           <Button>Place Order</Button>
         </div>

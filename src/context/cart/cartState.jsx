@@ -1,65 +1,64 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CartContext from "./cartContext";
 import PropTypes from "prop-types";
 
 const CartState = ({ children }) => {
-  const [cart, setCart] = useState([
-    {
-      productId: 1,
-      quantity: 4,
-    },
-    {
-      productId: 2,
-      quantity: 1,
-    },
-    {
-      productId: 4,
-      quantity: 6,
-    },
-    {
-      productId: 6,
-      quantity: 6,
-    },
-    {
-      productId: 9,
-      quantity: 6,
-    },
-  ]);
-  const [totalPrice, setTotalPrice] = useState(0);
+  const [cart, setCart] = useState([]);
 
-  const setQuantity = (productId, quantity) => {
+  const setQuantity = (id, quantity) => {
     // If the quantity is 0, remove the product from the cart
-    console.log(productId);
+    console.log(id);
     if (quantity <= 0) {
-      removeFromCart(productId);
+      removeFromCart(id);
       return;
     }
 
     setCart(
-      cart.map((item) =>
-        item.productId === productId ? { ...item, quantity } : item
+      cart.map((product) =>
+        product.id === id ? { ...product, quantity } : product
       )
     );
   };
 
-  const addToCart = (productId) => {
-    setCart([...cart, { productId, quantity: 1 }]);
+  const addToCart = (product) => {
+    const getProduct = cart.find((item) => item.id === product.id);
+
+    if (getProduct) {
+      setCart(
+        cart.map((item) =>
+          item.id === product.id
+            ? { ...product, quantity: getProduct.quantity + 1 }
+            : item
+        )
+      );
+
+      return;
+    }
+
+    setCart([...cart, { ...product, quantity: 1 }]);
   };
 
-  const removeFromCart = (productId) => {
-    console.log("Remove From Cart", productId);
-    setCart(cart.filter((item) => item.productId !== productId));
+  const removeFromCart = (id) => {
+    console.log("Remove From Cart", id);
+    setCart(cart.filter((item) => item.id !== id));
   };
+
+  useEffect(() => {
+    if (cart.length < 1) return;
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }, [cart]);
+
+  useEffect(() => {
+    setCart(JSON.parse(localStorage.getItem("cart")));
+  }, []);
 
   return (
     <CartContext.Provider
       value={{
         cart,
         addToCart,
-        setQuantity,
         removeFromCart,
-        totalPrice,
-        setTotalPrice,
+        setQuantity,
       }}
     >
       {children}

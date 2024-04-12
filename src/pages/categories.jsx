@@ -62,14 +62,7 @@ function CategoriesSection({ title, products }) {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 my-8">
         {products ? (
           products.map((product) => (
-            <ProductCard
-              key={product.id}
-              title={product.title}
-              img={product.image}
-              price={product.price}
-              rating={product.rating.rate}
-              ratingCount={product.rating.count}
-            />
+            <ProductCard key={product.id} product={product} />
           ))
         ) : (
           <ProductCardSkeleton count={4} />

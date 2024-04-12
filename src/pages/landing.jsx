@@ -40,15 +40,7 @@ export default function LandingPage() {
           <ProductCardSkeleton count={8} />
         ) : (
           allProduct?.map((product) => (
-            <ProductCard
-              key={product.id}
-              title={product.title}
-              img={product.image}
-              price={product.price}
-              className={"w-full"}
-              ratingCount={product.rating.count}
-              rating={product.rating.rate}
-            />
+            <ProductCard key={product.id} product={product} />
           ))
         )}
       </div>
