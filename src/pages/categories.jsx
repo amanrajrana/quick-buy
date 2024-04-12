@@ -36,13 +36,6 @@ function Categories() {
     ).then((data) => setMenClothingItems(data));
   }, []);
 
-  useEffect(() => {
-    console.log(jewelryItems);
-    console.log(electronicsItems);
-    console.log(menClothingItems);
-    console.log(womenClothingItems);
-  }, [jewelryItems, electronicsItems, menClothingItems, womenClothingItems]);
-
   return (
     <>
       <CategoriesSection title="Jewelry" products={jewelryItems} />

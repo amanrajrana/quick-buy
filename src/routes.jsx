@@ -3,12 +3,14 @@ import Layout from "./layout";
 import LandingPage from "./pages/landing";
 import Categories from "./pages/categories";
 import About from "./pages/about";
+import NotFoundPage from "./pages/not-found";
+import Cart from "./pages/cart";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <Layout />,
-    errorElement: <h1>Mahashay ye kis raste me aa gaye aap</h1>,
+    errorElement: <NotFoundPage />,
     children: [
       {
         path: "",
@@ -21,6 +23,10 @@ export const router = createBrowserRouter([
       {
         path: "about",
         element: <About />,
+      },
+      {
+        path: "cart",
+        element: <Cart />,
       },
     ],
   },
