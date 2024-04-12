@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 
 const CartState = ({ children }) => {
   const [cart, setCart] = useState([]);
+  const [isFirstLoad, setIsFirstLoad] = useState(true);
 
   const setQuantity = (id, quantity) => {
     // If the quantity is 0, remove the product from the cart
@@ -14,18 +15,18 @@ const CartState = ({ children }) => {
     }
 
     setCart(
-      cart.map((product) =>
+      cart?.map((product) =>
         product.id === id ? { ...product, quantity } : product
       )
     );
   };
 
   const addToCart = (product) => {
-    const getProduct = cart.find((item) => item.id === product.id);
+    const getProduct = cart?.find((item) => item.id === product.id);
 
     if (getProduct) {
       setCart(
-        cart.map((item) =>
+        cart?.map((item) =>
           item.id === product.id
             ? { ...product, quantity: getProduct.quantity + 1 }
             : item
@@ -40,16 +41,18 @@ const CartState = ({ children }) => {
 
   const removeFromCart = (id) => {
     console.log("Remove From Cart", id);
-    setCart(cart.filter((item) => item.id !== id));
+    setCart(cart?.filter((item) => item.id !== id));
   };
 
   useEffect(() => {
-    if (cart.length < 1) return;
+    if (isFirstLoad) return;
     localStorage.setItem("cart", JSON.stringify(cart));
-  }, [cart]);
+    setIsFirstLoad(false);
+  }, [cart, isFirstLoad]);
 
   useEffect(() => {
     setCart(JSON.parse(localStorage.getItem("cart")));
+    setIsFirstLoad(false);
   }, []);
 
   return (

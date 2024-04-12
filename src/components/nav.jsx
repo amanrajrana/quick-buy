@@ -69,7 +69,7 @@ export default function Nav() {
           <Link to="/cart" className="relative">
             <FiShoppingBag size={24} />
             <span className="absolute -top-2 -right-2 bg-primary text-primary-foreground rounded-full h-5 w-auto aspect-square flex items-center justify-center text-xs">
-              {cart.length > 9 ? "9+" : cart.length}
+              {cart && cart?.length > 9 ? "9+" : cart?.length}
             </span>
           </Link>
         </div>
