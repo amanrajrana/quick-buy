@@ -8,7 +8,8 @@ import CartContext from "../../context/cart/cartContext";
 
 export default function CartCard({ product }) {
   const { removeFromCart, cart, setQuantity } = useContext(CartContext);
-  const quantity = cart?.find((item) => item.id === product.id)?.quantity;
+  const quantity = cart.find((item) => item.id === product.id).quantity;
+
   return (
     <div className="bg-white flex flex-col lg:flex-row gap-x-4 justify-between overflow-hidden px-2 py-4 shadow rounded">
       <div className="flex gap-x-4">

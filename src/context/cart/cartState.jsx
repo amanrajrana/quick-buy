@@ -22,7 +22,9 @@ const CartState = ({ children }) => {
   };
 
   const addToCart = (product) => {
-    const getProduct = cart?.find((item) => item.id === product.id);
+    if (!product) return;
+
+    const getProduct = cart.find((item) => item.id === product.id);
 
     if (getProduct) {
       setCart(
@@ -40,8 +42,7 @@ const CartState = ({ children }) => {
   };
 
   const removeFromCart = (id) => {
-    console.log("Remove From Cart", id);
-    setCart(cart?.filter((item) => item.id !== id));
+    setCart(cart.filter((item) => item.id !== id));
   };
 
   useEffect(() => {
@@ -51,7 +52,13 @@ const CartState = ({ children }) => {
   }, [cart, isFirstLoad]);
 
   useEffect(() => {
-    setCart(JSON.parse(localStorage.getItem("cart")));
+    const cart = JSON.parse(localStorage.getItem("cart"));
+    console.log(cart);
+
+    if (!cart) return;
+
+    console.log("hey this is cart", cart);
+    setCart(JSON.parse(cart));
     setIsFirstLoad(false);
   }, []);
 
