@@ -1,13 +1,20 @@
 import PropTypes from "prop-types";
 import { FaCartPlus } from "react-icons/fa6";
-import { RatingStart } from "./ratingStart";
+import { RatingStar } from "./ratingStart";
 import { useContext } from "react";
 import CartContext from "../context/cart/cartContext";
 import { Card } from "./ui/card";
 import { Button } from "./ui/button";
+import { Product } from "@/types/type";
 
-export default function ProductCard({ className, product, ...props }) {
+type Props = {
+  className?: string;
+  product: Product;
+};
+
+export default function ProductCard({ className, product, ...props }: Props) {
   const { addToCart } = useContext(CartContext);
+
   return (
     <Card className={className} {...props}>
       <img
@@ -17,7 +24,7 @@ export default function ProductCard({ className, product, ...props }) {
       />
 
       <div className="flex flex-col items-center gap-y-2">
-        <RatingStart
+        <RatingStar
           rating={product.rating.rate}
           ratingCount={product.rating.count}
         />

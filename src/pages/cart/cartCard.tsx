@@ -1,13 +1,19 @@
 import { Button } from "../../components/ui/button";
 import PropTypes from "prop-types";
-import { RatingStart } from "../../components/ratingStart";
 import { BsLightningCharge } from "react-icons/bs";
 import { FaRegTrashCan } from "react-icons/fa6";
 import { useContext } from "react";
 import CartContext from "../../context/cart/cartContext";
+import { RatingStar } from "@/components/ratingStart";
+import { Product } from "@/types/type";
 
-export default function CartCard({ product }) {
+type Props = {
+  product: Product;
+};
+
+export default function CartCard({ product }: Props) {
   const { removeFromCart, cart, setQuantity } = useContext(CartContext);
+
   const quantity = cart.find((item) => item.id === product.id).quantity;
 
   return (
@@ -24,7 +30,7 @@ export default function CartCard({ product }) {
         <div>
           <h2 className="text-lg font-medium">{product.title}</h2>
           <div className="flex items-center text-sm">
-            <RatingStart
+            <RatingStar
               rating={product.rating.rate}
               ratingCount={product.rating.count}
             />

@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
 import CartContext from "./cartContext";
 import PropTypes from "prop-types";
+import { Cart, Product } from "@/types/type";
 
 type Props = {
   children: React.ReactNode;
 };
 
 const CartState = ({ children }: Props) => {
-  const [cart, setCart] = useState<any>([]);
-  const [isFirstLoad, setIsFirstLoad] = useState(true);
+  const [cart, setCart] = useState<Cart[]>([]);
+  const [isFirstLoad, setIsFirstLoad] = useState<boolean>(true);
 
   const setQuantity = (id: number, quantity: number) => {
     // If the quantity is 0, remove the product from the cart
@@ -25,14 +26,14 @@ const CartState = ({ children }: Props) => {
     );
   };
 
-  const addToCart = (product: any) => {
+  const addToCart = (product: Product) => {
     if (!product) return;
 
     const getProduct = cart.find((item: any) => item.id === product.id);
 
     if (getProduct) {
       setCart(
-        cart?.map((item: any) =>
+        cart.map((item: any) =>
           item.id === product.id
             ? { ...product, quantity: getProduct.quantity + 1 }
             : item
@@ -72,6 +73,9 @@ const CartState = ({ children }: Props) => {
         addToCart,
         removeFromCart,
         setQuantity,
+        isFirstLoad,
+        setIsFirstLoad,
+        setCart,
       }}
     >
       {children}

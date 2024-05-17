@@ -4,21 +4,22 @@ import TrendingCategories from "../components/trendingCategories";
 import ProductCard from "../components/productCard";
 import ProductCardSkeleton from "../components/productCardSkeleton";
 import CartContext from "../context/cart/cartContext";
+import { Product } from "@/types/type";
 
 export default function LandingPage() {
-  const [allProduct, setAllProduct] = useState([]);
+  const [allProduct, setAllProduct] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
 
   const { cart } = useContext(CartContext);
 
   useEffect(() => {
-    console.log(cart);
+    console.log("cart:", cart);
   }, [cart]);
 
-  const fetchProducts = async (api) => {
+  const fetchProducts = async (api: string) => {
     try {
       const response = await fetch(api);
-      return await response.json();
+      return (await response.json()) as Product[];
     } catch (error) {
       console.error(error);
     }
@@ -27,7 +28,7 @@ export default function LandingPage() {
   useEffect(() => {
     setLoading(true);
     fetchProducts("https://fakestoreapi.com/products")
-      .then((data) => setAllProduct(data))
+      .then((data) => setAllProduct(data as Product[]))
       .finally(() => setLoading(false));
   }, []);
 

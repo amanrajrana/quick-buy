@@ -1,10 +1,9 @@
 import { FaRegStar, FaStar } from "react-icons/fa6";
-import PropTypes from "prop-types";
 
-export function RatingStart({ rating, ratingCount }) {
+export function RatingStar({ rating, ratingCount }: PropsRatingStar) {
   return (
     <div className="flex gap-x-1 items-center">
-      {Array.from({ length: 5 }).map((n, index) => {
+      {Array.from({ length: 5 }).map((_, index) => {
         if (index < Math.floor(rating))
           return <FaStar key={index} className=" text-yellow-500" />;
 
@@ -17,12 +16,7 @@ export function RatingStart({ rating, ratingCount }) {
   );
 }
 
-RatingStart.propTypes = {
-  rating: PropTypes.number.isRequired,
-  ratingCount: PropTypes.number.isRequired,
-};
-
-function DecimalStar({ rating }) {
+function DecimalStar({ rating }: PropsDecimalStar) {
   return (
     <div className="relative w-fit h-fit">
       <div
@@ -36,6 +30,12 @@ function DecimalStar({ rating }) {
   );
 }
 
-DecimalStar.propTypes = {
-  rating: PropTypes.number.isRequired,
+// Types Declaration
+type PropsRatingStar = {
+  rating: number;
+  ratingCount: number;
+};
+
+type PropsDecimalStar = {
+  rating: number;
 };
