@@ -2,11 +2,15 @@ import { useEffect, useState } from "react";
 import CartContext from "./cartContext";
 import PropTypes from "prop-types";
 
-const CartState = ({ children }) => {
-  const [cart, setCart] = useState([]);
+type Props = {
+  children: React.ReactNode;
+};
+
+const CartState = ({ children }: Props) => {
+  const [cart, setCart] = useState<any>([]);
   const [isFirstLoad, setIsFirstLoad] = useState(true);
 
-  const setQuantity = (id, quantity) => {
+  const setQuantity = (id: number, quantity: number) => {
     // If the quantity is 0, remove the product from the cart
     console.log(id);
     if (quantity <= 0) {
@@ -15,20 +19,20 @@ const CartState = ({ children }) => {
     }
 
     setCart(
-      cart?.map((product) =>
+      cart?.map((product: any) =>
         product.id === id ? { ...product, quantity } : product
       )
     );
   };
 
-  const addToCart = (product) => {
+  const addToCart = (product: any) => {
     if (!product) return;
 
-    const getProduct = cart.find((item) => item.id === product.id);
+    const getProduct = cart.find((item: any) => item.id === product.id);
 
     if (getProduct) {
       setCart(
-        cart?.map((item) =>
+        cart?.map((item: any) =>
           item.id === product.id
             ? { ...product, quantity: getProduct.quantity + 1 }
             : item
@@ -41,8 +45,8 @@ const CartState = ({ children }) => {
     setCart([...cart, { ...product, quantity: 1 }]);
   };
 
-  const removeFromCart = (id) => {
-    setCart(cart.filter((item) => item.id !== id));
+  const removeFromCart = (id: number) => {
+    setCart(cart.filter((item: any) => item.id !== id));
   };
 
   useEffect(() => {
@@ -52,14 +56,13 @@ const CartState = ({ children }) => {
   }, [cart, isFirstLoad]);
 
   useEffect(() => {
-    const cart = JSON.parse(localStorage.getItem("cart"));
+    const data = localStorage.getItem("cart") || "[]";
+    const cart = JSON.parse(data);
     console.log(cart);
 
     if (!cart) return;
 
-    console.log("hey this is cart", cart);
-    setCart(JSON.parse(cart));
-    setIsFirstLoad(false);
+    setCart(cart);
   }, []);
 
   return (

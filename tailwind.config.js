@@ -1,6 +1,6 @@
 const config = {
   darkMode: ["class"],
-  content: ["./src/**/*.{js,jsx}"],
+  content: ["./src/**/*.{js,jsx,tsx}"],
   prefix: "",
   theme: {
     container: {
