@@ -1,16 +1,17 @@
 import Nav from "./components/nav";
 import Footer from "./components/footer";
 import { Outlet } from "react-router-dom";
-import CartState from "./context/cart/cartState";
+import { Provider } from "react-redux";
+import { store } from "@/redux/store";
 
 export default function Layout() {
   return (
-    <CartState>
+    <Provider store={store}>
       <Nav />
       <main>
         <Outlet />
       </main>
       <Footer />
-    </CartState>
+    </Provider>
   );
 }

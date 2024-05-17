@@ -1,20 +1,13 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Hero from "../components/hero";
 import TrendingCategories from "../components/trendingCategories";
 import ProductCard from "../components/productCard";
 import ProductCardSkeleton from "../components/productCardSkeleton";
-import CartContext from "../context/cart/cartContext";
 import { Product } from "@/types/type";
 
 export default function LandingPage() {
   const [allProduct, setAllProduct] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
-
-  const { cart } = useContext(CartContext);
-
-  useEffect(() => {
-    console.log("cart:", cart);
-  }, [cart]);
 
   const fetchProducts = async (api: string) => {
     try {

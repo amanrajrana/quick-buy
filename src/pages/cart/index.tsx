@@ -1,16 +1,17 @@
-import { useContext } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "../../components/ui/button";
 import CartCard from "./cartCard";
-import CartContext from "../../context/cart/cartContext";
+import { useAppSelector } from "@/redux/hook";
 
 export default function Cart() {
-  const { cart } = useContext(CartContext);
+  const cart = useAppSelector((state) => state.cart.products);
+  const [totalCartPrice, setTotalCartPrice] = useState<number>(0);
+  const [deliveryCharge, setDeliveryCharge] = useState<number>(0);
 
-  const totalCartPrice = cart?.reduce(
-    (acc, product) => acc + product.price * product.quantity,
-    0
-  );
-  const deliveryCharge = totalCartPrice < 500 ? 40 : 0;
+  useEffect(() => {
+    const deliveryCharge = 50;
+    setDeliveryCharge(deliveryCharge);
+  }, []);
 
   return (
     <section className="container grid grid-cols-1 lg:grid-cols-3 gap-4 mt-12">
@@ -19,8 +20,13 @@ export default function Cart() {
           <h1 className="text-xl font-medium">Your cart ({cart?.length}) </h1>
         </div>
         <div className="space-y-4 py-4">
-          {cart?.map((product, index) => (
-            <CartCard key={index} product={product} />
+          {cart.map((item, index) => (
+            <CartCard
+              setTotalCartPrice={setTotalCartPrice}
+              totalCartPrice={totalCartPrice}
+              key={index}
+              product={item}
+            />
           ))}
         </div>
       </div>

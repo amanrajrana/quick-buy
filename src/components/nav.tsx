@@ -2,15 +2,15 @@ import { FiSearch, FiShoppingBag } from "react-icons/fi";
 import { FaRegHeart } from "react-icons/fa";
 import { Link, useLocation } from "react-router-dom";
 import { CgMenuLeft } from "react-icons/cg";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { HiMiniXMark } from "react-icons/hi2";
 import { Button } from "./ui/button";
-import CartContext from "../context/cart/cartContext";
+import { useAppSelector } from "@/redux/hook";
 
 export default function Nav() {
   const location = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { cart } = useContext(CartContext);
+  const noOfItemsInCart = useAppSelector((state) => state.cart.products.length);
 
   const NAV_ITEMS = [
     { title: "About", path: "/about" },
@@ -69,7 +69,7 @@ export default function Nav() {
           <Link to="/cart" className="relative">
             <FiShoppingBag size={24} />
             <span className="absolute -top-2 -right-2 bg-primary text-primary-foreground rounded-full h-5 w-auto aspect-square flex items-center justify-center text-xs">
-              {cart && cart?.length > 9 ? "9+" : cart?.length}
+              {noOfItemsInCart > 9 ? "9+" : noOfItemsInCart}
             </span>
           </Link>
         </div>
