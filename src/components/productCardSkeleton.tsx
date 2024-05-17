@@ -1,11 +1,10 @@
-import { Card } from "./UI/card";
-import { Skeleton } from "./UI/skeleton";
-import PropTypes from "prop-types";
+import { Card } from "./ui/card";
+import { Skeleton } from "./ui/skeleton";
 
 export default function ProductCardSkeleton({ count = 1 }) {
   return (
     <>
-      {Array.from({ length: count }).map((n, index) => (
+      {Array.from({ length: count }).map((_, index) => (
         <Card key={index}>
           <Skeleton className={"w-full h-60 bg-slate-300 rounded-lg"} />
           <Skeleton className="w-full h-6 bg-slate-300" />
@@ -16,7 +15,3 @@ export default function ProductCardSkeleton({ count = 1 }) {
     </>
   );
 }
-
-ProductCardSkeleton.propTypes = {
-  count: PropTypes.number.isRequired,
-};

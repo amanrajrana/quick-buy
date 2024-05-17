@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { Button } from "../../components/UI/button";
+import { Button } from "../../components/ui/button";
 import CartCard from "./cartCard";
 import CartContext from "../../context/cart/cartContext";
 

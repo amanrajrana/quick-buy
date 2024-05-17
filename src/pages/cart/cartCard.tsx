@@ -1,4 +1,4 @@
-import { Button } from "../../components/UI/button";
+import { Button } from "../../components/ui/button";
 import PropTypes from "prop-types";
 import { RatingStart } from "../../components/ratingStart";
 import { BsLightningCharge } from "react-icons/bs";

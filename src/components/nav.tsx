@@ -4,7 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 import { CgMenuLeft } from "react-icons/cg";
 import { useContext, useEffect, useState } from "react";
 import { HiMiniXMark } from "react-icons/hi2";
-import { Button } from "./UI/button";
+import { Button } from "./ui/button";
 import CartContext from "../context/cart/cartContext";
 
 export default function Nav() {

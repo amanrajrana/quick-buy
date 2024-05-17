@@ -1,10 +1,10 @@
-import { Card } from "./UI/card";
 import PropTypes from "prop-types";
-import { Button } from "./UI/button";
 import { FaCartPlus } from "react-icons/fa6";
 import { RatingStart } from "./ratingStart";
 import { useContext } from "react";
 import CartContext from "../context/cart/cartContext";
+import { Card } from "./ui/card";
+import { Button } from "./ui/button";
 
 export default function ProductCard({ className, product, ...props }) {
   const { addToCart } = useContext(CartContext);

@@ -1,4 +1,4 @@
-import { Button } from "../components/UI/button";
+import { Button } from "../components/ui/button";
 
 function Hero() {
   return (
